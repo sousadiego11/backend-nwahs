@@ -2,7 +2,7 @@ import { getNextUsersListUrl, getUsersUrl } from "../utils/functions.js"
 import { github } from "../utils/github.js"
 
 async function getUsersList(since) {
-	if (since && typeof since !== Number) {
+	if (since && isNaN(since)) {
 		throw new Error('Since must be a number!')
 	}
 
@@ -21,7 +21,13 @@ async function getUser(username) {
 	return user
 }
 
+async function getUserRepos(username) {
+	const { data: repos } = await github.get(`/users/${username}/repos`)
+	return repos
+}
+
 export {
 	getUsersList,
-	getUser
+	getUser,
+	getUserRepos
 }

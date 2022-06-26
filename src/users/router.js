@@ -1,5 +1,5 @@
 import express from 'express'
-import { getUser, getUsersList } from './index.js'
+import { getUser, getUsersList, getUserRepos } from './index.js'
 
 export const userRouter = express.Router()
 
@@ -15,5 +15,10 @@ userRouter.get('/users', async (req, res) => {
 
 userRouter.get('/users/:username/details', async (req, res) => {
 	const response = await getUser(req.params.username)
+	res.send(response)
+})
+
+userRouter.get('/users/:username/repos', async (req, res) => {
+	const response = await getUserRepos(req.params.username)
 	res.send(response)
 })
