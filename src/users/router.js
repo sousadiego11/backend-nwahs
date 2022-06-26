@@ -1,11 +1,13 @@
 import express from 'express'
-import { getUser, getUsersList, getUserRepos } from './index.js'
+import { github } from '../utils/github.js'
+import { Users } from './index.js'
 
 export const userRouter = express.Router()
+const users = new Users(github)
 
 userRouter.get('/users', async (req, res) => {
 	try {
-		const response = await getUsersList(req.query.since)
+		const response = await users.getUsersList(req.query.since)
 		res.send(response)
 	} catch (error) {
         res.status(400)
@@ -14,11 +16,11 @@ userRouter.get('/users', async (req, res) => {
 })
 
 userRouter.get('/users/:username/details', async (req, res) => {
-	const response = await getUser(req.params.username)
+	const response = await users.getUser(req.params.username)
 	res.send(response)
 })
 
 userRouter.get('/users/:username/repos', async (req, res) => {
-	const response = await getUserRepos(req.params.username)
+	const response = await users.getUserRepos(req.params.username)
 	res.send(response)
 })

@@ -1,33 +1,35 @@
 import { getNextUsersListUrl, getUsersUrl } from "../utils/functions.js"
 import { github } from "../utils/github.js"
 
-async function getUsersList(since) {
-	if (since && isNaN(since)) {
-		throw new Error('Since must be a number!')
+export class Users {
+	api = null
+
+	constructor(api) {
+		this.api = api
 	}
 
-	const url = getUsersUrl(since)
-	const { data: users } = await github.get(url)
-	const nextUrl = getNextUsersListUrl(users)
+	async getUsersList(since) {
+		if (since && isNaN(since)) {
+			throw new Error('Since must be a number!')
+		}
 	
-	return {
-		users,
-		nextUrl
+		const url = getUsersUrl(since)
+		const { data: users } = await github.get(url)
+		const nextUrl = getNextUsersListUrl(users)
+		
+		return {
+			users,
+			nextUrl
+		}
 	}
-}
-
-async function getUser(username) {
-	const { data: user } = await github.get(`/users/${username}`)
-	return user
-}
-
-async function getUserRepos(username) {
-	const { data: repos } = await github.get(`/users/${username}/repos`)
-	return repos
-}
-
-export {
-	getUsersList,
-	getUser,
-	getUserRepos
+	
+	async getUser(username) {
+		const { data: user } = await github.get(`/users/${username}`)
+		return user
+	}
+	
+	async getUserRepos(username) {
+		const { data: repos } = await github.get(`/users/${username}/repos`)
+		return repos
+	}
 }
