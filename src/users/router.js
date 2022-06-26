@@ -5,32 +5,29 @@ import { Users } from './Users.js'
 export const userRouter = express.Router()
 const users = new Users(github)
 
-userRouter.get('/users', async (req, res) => {
+userRouter.get('/users', async (req, res, next) => {
 	try {
 		const response = await users.getUsersList(req.query.since)
 		res.send(response)
-	} catch (error) {
-        res.status(400)
-		res.send(error.message)
+	} catch (e) {
+        next(e)
 	}
 })
 
-userRouter.get('/users/:username/details', async (req, res) => {
+userRouter.get('/users/:username/details', async (req, res, next) => {
 	try {
 		const response = await users.getUser(req.params.username)
 		res.send(response)
-	} catch (error) {
-		res.status(400)
-		res.send(error.message)
+	} catch (e) {
+        next(e)
 	}
 })
 
-userRouter.get('/users/:username/repos', async (req, res) => {
+userRouter.get('/users/:username/repos', async (req, res, next) => {
 	try {
 		const response = await users.getUserRepos(req.params.username)
 		res.send(response)
-	} catch (error) {
-		res.status(400)
-		res.send(error.message)
+	} catch (e) {
+        next(e)
 	}
 })
