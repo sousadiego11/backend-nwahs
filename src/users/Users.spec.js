@@ -1,3 +1,4 @@
+import { github } from "../utils/github.js"
 import { Users } from "./Users.js"
 
 const apiStub = {
@@ -29,5 +30,16 @@ describe('Get users list', () => {
 		console.log(Object.keys(response))
 
 		expect(Object.keys(response).sort()).toEqual(['nextUrl', 'users'])
+	})
+})
+
+describe('Get user', () => {
+	const users = new Users(github)
+
+	test('Should not throw if try to get valid user', async () => {
+		await expect(users.getUser('sousadiego11')).resolves
+	})
+	test('Should throw if try to get invalid user', async () => {
+		await expect(users.getUser(Math.random() * 6)).rejects.toThrow()
 	})
 })
