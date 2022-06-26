@@ -1,5 +1,4 @@
 import { getNextUsersListUrl, getUsersUrl } from "../utils/functions.js"
-import { github } from "../utils/github.js"
 
 export class Users {
 	api = null
