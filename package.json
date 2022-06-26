@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "type": "module",
   "keywords": [],
@@ -18,6 +19,7 @@
     "express": "^4.18.1"
   },
   "devDependencies": {
+    "jest": "^28.1.1",
     "nodemon": "^2.0.18"
   }
 }

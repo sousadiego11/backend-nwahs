@@ -1,6 +1,6 @@
 import express from 'express'
 import { github } from '../utils/github.js'
-import { Users } from './index.js'
+import { Users } from './Users.js'
 
 export const userRouter = express.Router()
 const users = new Users(github)
