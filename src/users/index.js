@@ -14,7 +14,7 @@ export class Users {
 		}
 	
 		const url = getUsersUrl(since)
-		const { data: users } = await github.get(url)
+		const { data: users } = await this.api.get(url)
 		const nextUrl = getNextUsersListUrl(users)
 		
 		return {
@@ -24,12 +24,12 @@ export class Users {
 	}
 	
 	async getUser(username) {
-		const { data: user } = await github.get(`/users/${username}`)
+		const { data: user } = await this.api.get(`/users/${username}`)
 		return user
 	}
 	
 	async getUserRepos(username) {
-		const { data: repos } = await github.get(`/users/${username}/repos`)
+		const { data: repos } = await this.api.get(`/users/${username}/repos`)
 		return repos
 	}
 }
