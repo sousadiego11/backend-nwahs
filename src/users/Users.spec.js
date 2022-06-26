@@ -43,3 +43,14 @@ describe('Get user', () => {
 		await expect(users.getUser(Math.random() * 6)).rejects.toThrow()
 	})
 })
+
+describe('Get user repos', () => {
+	const users = new Users(github)
+
+	test('Should not throw if try to get valid user', async () => {
+		await expect(users.getUserRepos('sousadiego11')).resolves
+	})
+	test('Should throw if try to get invalid user', async () => {
+		await expect(users.getUserRepos(Math.random() * 6)).rejects.toThrow()
+	})
+})

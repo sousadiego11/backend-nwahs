@@ -16,7 +16,6 @@ userRouter.get('/users', async (req, res) => {
 })
 
 userRouter.get('/users/:username/details', async (req, res) => {
-	
 	try {
 		const response = await users.getUser(req.params.username)
 		res.send(response)
@@ -27,6 +26,11 @@ userRouter.get('/users/:username/details', async (req, res) => {
 })
 
 userRouter.get('/users/:username/repos', async (req, res) => {
-	const response = await users.getUserRepos(req.params.username)
-	res.send(response)
+	try {
+		const response = await users.getUserRepos(req.params.username)
+		res.send(response)
+	} catch (error) {
+		res.status(400)
+		res.send(error.message)
+	}
 })
